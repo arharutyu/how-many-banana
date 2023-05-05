@@ -5,7 +5,7 @@ def bconvert(metres):
     converted = metres / item_length
     return f'{converted:.2f}'
 
-def  fconvert(feet, inches):
+def fconvert(feet, inches):
     feet = float(feet)
     inches = float(inches)
     metres = (feet * 12 + inches) * .0254
