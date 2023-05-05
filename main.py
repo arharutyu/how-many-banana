@@ -17,6 +17,7 @@ while run == True:
     print(f"\nYou are measuring with {item}s in the {measures} system.")
     get_input = input('Type C to convert, S to adjust settings, or Q to quit: ')
     match get_input.lower():
+        #Convert to banana feature
         case 'c':
             if measures == 'imperial':    
                 feet = input("Enter a number in feet: ")
@@ -26,8 +27,10 @@ while run == True:
             else:    
                 num = input("Enter a number in metres: ")
                 print(f"{num}m is {bconvert(num)} {item}s long!")
+        #Adjust settings feature
         case 's':
             updatesettings = [{'item': item, 'measures': measures}]
+            #Metric/Imperial Settings
             while run == True:
                 measures = input('Convert using metric or imperial system?\n')
                 match measures.lower():
@@ -39,10 +42,28 @@ while run == True:
                         break
                     case _:
                         print("Sorry, please type 'metric' or 'imperial'")
-            
-            with open('settings2.json', 'w') as s:
+            while run == True:
+                #Item settings
+                get_item = input('What item would you like to measure with?\n')
+                
+                if check_library(get_item):
+                    updatesettings[0]['item'] = str(get_item)
+                    item = get_item
+                    break
+                    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    # !!!!!!!!! MAKE SURE YOU ACTUALLY CODE THE CHANGE OF ITEM LENGTH IN BANANACONVERT.PY
+                    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                else:
+                      print(f"Looks like {get_item} isn't in the library. Would you like to add it's length now? (Yes/No) ")
+                        #Add an item to the library
+
+
+            #Update settings json file
+            with open('settings.json', 'w') as s:
                 json.dump(updatesettings, s, indent=2)
                 print('Settings have been updated')
+
+        #Quit from menu
         case 'q':
             print('See you later!')
             break
