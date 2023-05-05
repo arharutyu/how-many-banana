@@ -1,28 +1,8 @@
 import csv, json
+
 item_length = 0.13
 
-with open('library.csv') as library:
-    reader = csv.DictReader(library, delimiter=',')
 
-
-def bconvert(metres):
-    metres = float(metres)
-    converted = metres / item_length
-    return f'{converted:.2f}'
-
-def fconvert(feet, inches):
-    feet = float(feet)
-    inches = float(inches)
-    metres = (feet * 12 + inches) * .0254
-    return metres
-
-def check_library(item):
-    item = str(item).lower()
-    with open('library.csv') as library:
-        reader = csv.DictReader(library, delimiter=',')
-        for row in reader:
-            if item in str(row): 
-                return True
             
 class Settings:
     def __init__(self, item, measures):
@@ -53,6 +33,7 @@ class Settings:
                 if check_library(get_item):
                     update[0]['item'] = str(get_item)
                     item = get_item
+
                     break
                     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                     # !!!!!!!!! MAKE SURE YOU ACTUALLY CODE THE CHANGE OF ITEM LENGTH IN BANANACONVERT.PY
@@ -61,9 +42,39 @@ class Settings:
                       print(f"Looks like {get_item} isn't in the library. Would you like to add it's length now? (Yes/No) ")
                         #Add an item to the library
 
-
         with open('settings.json', 'w') as s:
                 json.dump(update, s, indent=2)
                 print('Settings have been updated')
+         
 
-        print(self.__str__(item, measures))
+def bconvert(metres):
+    with open('library.csv') as library:
+        reader = csv.DictReader(library, delimiter=',')
+        for row in reader:
+            if row['item'] == 'apple':
+                item_length = row['length']
+    metres = float(metres)
+    converted = metres / float(item_length)
+    return f'{converted:.2f}'
+
+def fconvert(feet, inches):
+    feet = float(feet)
+    inches = float(inches)
+    metres = (feet * 12 + inches) * .0254
+    return metres
+
+def check_library(item):
+    item = str(item).lower()
+    with open('library.csv') as library:
+        reader = csv.DictReader(library, delimiter=',')
+        for row in reader:
+            if item in str(row): 
+                return True
+
+# class Fruit(Settings):
+#     def __init__(self, item):
+#           self.item = item
+#           self.length = length
+          
+
+
