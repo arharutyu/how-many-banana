@@ -1,6 +1,7 @@
 from bananaconvert import bconvert, fconvert
 import bananaconvert
-import json, csv
+import json, csv, pytest
+
 
 #Heading
 print('Welcome to How Many Banana?')
@@ -10,7 +11,6 @@ run = True
 while run == True:
 
 #Set what the measuring item is & metric/imperial measurements
-
     with open('settings.json') as s:
         settings = json.load(s)
         item = str(settings[0]["item"]).lower()
@@ -24,10 +24,13 @@ while run == True:
             if item == row['item']:
                 item_length = row['length']    
 
+    #Print current settings
     print(settings.__str__(item, measures))  
 
+    #Ask user for input
     get_input = input('Type C to convert, S to adjust settings, or Q to quit: ')
     match get_input.lower():
+
         #Convert to banana feature
         case 'c':
             if measures == 'imperial':    
@@ -42,9 +45,7 @@ while run == True:
         #Adjust settings feature
         case 's':
             settings.update_settings(item, measures)
-            # settings.refresh(item, measures)
-            settings.__str__(item, measures)
-            
+            settings.__str__(item, measures)            
 
         #Quit from menu
         case 'q':
