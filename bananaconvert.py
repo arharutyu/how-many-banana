@@ -38,9 +38,9 @@ class Settings:
                         elif float(ask_add):
                                 add_library(get_item, ask_add)
                                 print(f"{get_item} has been added to the library with a length of {ask_add}m")
+                                update[0]['item'] = str(get_item)
                                 item = get_item
-                                break
-                        
+                                break              
 
         #Update settings.json with new settings
         with open('settings.json', 'w') as s:
@@ -73,7 +73,7 @@ def add_library(item, length):
      item = str(item).lower()
      length = float(length)
      new_item = {"item": item, "length": length}
-     with open('library.csv', 'a') as library:
+     with open('library.csv', 'a', newline='') as library:
           writer = csv.DictWriter(library, new_item.keys())
           writer.writerow(new_item)
           
