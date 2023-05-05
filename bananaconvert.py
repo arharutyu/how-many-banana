@@ -47,12 +47,7 @@ class Settings:
                 print('Settings have been updated')
          
 
-def bconvert(metres):
-    with open('library.csv') as library:
-        reader = csv.DictReader(library, delimiter=',')
-        for row in reader:
-            if row['item'] == 'apple':
-                item_length = row['length']
+def bconvert(metres, item_length):
     metres = float(metres)
     converted = metres / float(item_length)
     return f'{converted:.2f}'

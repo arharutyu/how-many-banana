@@ -1,6 +1,6 @@
 from bananaconvert import bconvert, fconvert
 import bananaconvert
-import json
+import json, csv
 
 #Heading
 print('Welcome to How Many Banana?')
@@ -17,7 +17,15 @@ while run == True:
         measures = str(settings[0]["measures"]).lower()
     settings = bananaconvert.Settings(item, measures)
 
+    #set item length from library
+    with open('library.csv') as library:
+        reader = csv.DictReader(library, delimiter=',')
+        for row in reader:
+            if item == row['item']:
+                item_length = row['length']    
+
     print(settings.__str__(item, measures))  
+
     get_input = input('Type C to convert, S to adjust settings, or Q to quit: ')
     match get_input.lower():
         #Convert to banana feature
@@ -26,10 +34,10 @@ while run == True:
                 feet = input("Enter a number in feet: ")
                 inches = input("Enter a number in inches: ")
                 num = fconvert(feet, inches)
-                print(f"{feet} feet {inches} inches is {bconvert(num)} {item}s long!")
+                print(f"{feet} feet {inches} inches is {bconvert(num, item_length)} {item}s long!")
             else:    
                 num = input("Enter a number in metres: ")
-                print(f"{num}m is {bconvert(num)} {item}s long!")
+                print(f"{num}m is {bconvert(num, item_length)} {item}s long!")
 
         #Adjust settings feature
         case 's':
