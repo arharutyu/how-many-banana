@@ -1,11 +1,12 @@
-from bananaconvert import bconvert, fconvert
-import json
+from bananaconvert import bconvert, fconvert, check_library
+import json, csv
+
 
 #Set what the measuring item is & metric/imperial measurements
 with open('settings.json') as s:
     settings = json.load(s)
-    item = settings[0]["item"]
-    measures = settings[0]["measures"]
+    item = str(settings[0]["item"]).lower()
+    measures = str(settings[0]["measures"]).lower()
 
 #Heading
 print('Welcome to How Many Banana?')
@@ -15,8 +16,8 @@ run = True
 while run == True:
     print(f"\nYou are measuring with {item}s in the {measures} system.")
     get_input = input('Type C to convert, S to adjust settings, or Q to quit: ')
-    match get_input:
-        case 'C' | 'c':
+    match get_input.lower():
+        case 'c':
             if measures == 'imperial':    
                 feet = input("Enter a number in feet: ")
                 inches = input("Enter a number in inches: ")
@@ -25,24 +26,24 @@ while run == True:
             else:    
                 num = input("Enter a number in metres: ")
                 print(f"{num}m is {bconvert(num)} {item}s long!")
-        case 'S' | 's':
+        case 's':
             updatesettings = [{'item': item, 'measures': measures}]
             while run == True:
                 measures = input('Convert using metric or imperial system?\n')
                 match measures.lower():
                     case 'metric':
-                        measures = 'metric'
+                        updatesettings[0]['measures'] = 'metric'
                         break
                     case 'imperial':
-                        measures = 'imperial'
+                        updatesettings[0]['measures'] = 'imperial'
                         break
                     case _:
                         print("Sorry, please type 'metric' or 'imperial'")
-                # item = input('What item would you like to measure with?\n')
-            with open('settings.json', 'w') as s:
+            
+            with open('settings2.json', 'w') as s:
                 json.dump(updatesettings, s, indent=2)
                 print('Settings have been updated')
-        case 'Q' | 'q':
+        case 'q':
             print('See you later!')
             break
         case _:
