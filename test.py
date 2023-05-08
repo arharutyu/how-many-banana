@@ -10,6 +10,7 @@ print('Welcome to How Many Banana?')
 run = True
 while run == True:
 
+    item = settings.Item(item)
 #Set what the measuring item is & metric/imperial measurements
     with open('settings.json') as s:
         settings = json.load(s)
@@ -17,12 +18,14 @@ while run == True:
         measures = str(settings[0]["measures"]).lower()
     settings = bananaconvert.Settings(item, measures)
 
-    #set item length from library    
-    with open('library.csv') as library:
-        reader = csv.DictReader(library, delimiter=',')
-        for row in reader:
-            if item == row['item']:
-                item_length = row['length']    
+    #set item length from library
+    item.load(item)
+
+    # with open('library.csv') as library:
+    #     reader = csv.DictReader(library, delimiter=',')
+    #     for row in reader:
+    #         if item == row['item']:
+    #             item_length = row['length']    
 
     #Print current settings
     print(settings.__str__(item, measures))  
