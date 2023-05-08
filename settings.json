@@ -1,6 +1,6 @@
 [
   {
-    "item": "washing machine",
-    "measures": "imperial"
+    "item_name": "banana",
+    "is_metric": "True"
   }
 ]
