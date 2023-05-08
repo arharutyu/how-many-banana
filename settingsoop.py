@@ -6,16 +6,29 @@ import json, csv
 #         raise KeyboardInterrupt
 
 def convert_from_m(met_length, item_length):
+    try:    
         met_length = float(met_length)
         item_length = float(item_length)
         converted_length = met_length / item_length
-        return f'{converted_length:.2f}'
+
+    except Exception:
+         converted_length = 1
+         print('Error in calculation, assuming converted length of 1')
+          
+    return f'{converted_length:.2f}'      
     
 def convert_from_i(feet, inches):
+    try:
         feet = float(feet)
         inches = float(inches)
         met_length = (feet * 12 + inches) * .0254
-        return met_length
+
+    except Exception:
+         met_length = 1
+         print('Error in calculation, assuming length of 1')
+
+    return met_length
+    
 
 class Settings:
     def __init__(self):
@@ -33,20 +46,28 @@ class Settings:
         return f"\nYou are measuring with {item}s in the {measure_name} system."
 
     def retrieve_settings(self):
-        with open('settings.json') as s:
-            settings = json.load(s)
-            item = str(settings[0]["item_name"]).lower()
-            is_metric = settings[0]["is_metric"]
-        self.item = item
-        self.is_metric = is_metric
+        try:    
+            with open('settings.json') as s:
+                settings = json.load(s)
+                item = str(settings[0]["item_name"]).lower()
+                is_metric = settings[0]["is_metric"]
+            self.item = item
+            self.is_metric = is_metric
+
+        except Exception:
+             print("Something went very wrong, sorry it's broken.")
+             quit()
+
 
     def update_settings(self, item_name, is_metric):
-        update = [{'item_name': item_name, 'is_metric': str(is_metric)}]
-        print(update)
-        with open('settings.json', 'w') as s:
-                json.dump(update, s, indent=2)
-        return print('Settings have been updated')
-    
+        try:    
+            update = [{'item_name': item_name, 'is_metric': str(is_metric)}]
+            with open('settings.json', 'w') as s:
+                    json.dump(update, s, indent=2)
+            return print('Settings have been updated')
+        except Exception:
+             print('Sorry, something went wrong. Settings were not updated.')
+        
     def update_measure(self):
         run = None
         while run == None:
@@ -59,6 +80,8 @@ class Settings:
                     case 'i':
                             self.is_metric = False
                             break
+                    case _:
+                          raise ValueError
             except ValueError:
                  print("Sorry, please type 'metric' or 'imperial'")
         
@@ -66,13 +89,14 @@ class Settings:
 class Item:
     def __init__(self, item_name):
         self.item_name = item_name
+        self.item_length = ' '
         with open('library.csv') as library:
             reader = csv.DictReader(library, delimiter=',')
             for row in reader:
                                     
                     if item_name.lower() == row['item_name'].lower():
-                        item_length = row['item_length']
-        self.item_length = item_length
+                        self.item_length = row['item_length']
+        
 
     def __repr__(self):
          item_name = self.item_name
@@ -91,7 +115,7 @@ class Item:
             reader = csv.DictReader(library, delimiter=',')
             for row in reader:
                 if item_name == row['item_name']:
-                    item_length = row['item_length']
+                    self.item_length = row['item_length']
                     break
         return item_length
 
@@ -103,3 +127,21 @@ class Item:
             writer = csv.DictWriter(library, new_item.keys())
             writer.writerow(new_item)
         return print(f'{item_name} has been added to the library with a length of {item_length} metres.\n')
+
+    def get_item(self):
+        run = True
+        while run == True:
+            get_input = input('What item would you like to measure with?\n')
+            if self.check_item(get_input):
+                self.item_name = get_input.lower()
+                break
+            else:
+                ask_add = input(f"Looks like {get_input} isn't in the library. If you'd like to add it, please enter its' length in metres. Enter 'S' to skip.\n")
+                if ask_add.lower() == 's':
+                     break
+                else:
+                     self.item_name = get_input
+                     self.item_length = float(ask_add)
+                     self.add_item(self.item_name, self.item_length)
+            
+                     break
