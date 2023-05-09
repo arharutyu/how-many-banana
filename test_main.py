@@ -1,6 +1,7 @@
 import pytest
 from settingsoop import convert_from_m, Settings, Item
 
+##CONVERT FEATURE TESTS##
 
 def test_convert_from_m():
     # test if item_length is zero
@@ -9,6 +10,8 @@ def test_convert_from_m():
     assert convert_from_m(10,2) == '5.00'
 
 
+
+##UPDATE SETTINGS TESTS (is_metric)##
 testSettingsData = [
         {'item_name': 'banana', 'is_metric': False}
     ]
@@ -18,21 +21,27 @@ def update_settings(request):
         settings = Settings()
         settings.update_settings(request.param.get('item_name'), request.param.get('is_metric'))
         return settings
-        # return settings.update_settings(request.param.get('item_name'), request.param.get('is_metric'))
 
-def test_update_measure(update_settings):
+
+def test_update_settings(update_settings):
+        # test is_metric attribute of Settings has updated
+        assert update_settings.is_metric == 'False'
+        # test item attribute of Settings
         assert update_settings.item == 'banana'
 
-
-testAddItem = [
-       {'item_name':'grape', 'item_length': 'item_length'}
+##UPDATE SETTINGS TESTS (item)##
+testItemData = [
+       {'item_name':'grape', 'item_length': '0.01'}
 ]
 
-@pytest.fixture(scope="session", params=testAddItem)
+@pytest.fixture(scope="session", params=testItemData)
 def add_item(request):
-       item = Item()
-       item.add_item(request.params.get('item_name'), request.params.get('item_length'))
+       item = Item(request.param.get('item_name'))
+       item.add_item(request.param.get('item_name'), request.param.get('item_length'))
        return item
 
-
-
+def test_add_item(add_item):
+       #test item name attribute of Item has added
+       assert add_item.item_name == 'grape'
+       #test item length attribute of Item has added
+       assert add_item.item_length == '0.01'
