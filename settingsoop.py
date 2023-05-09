@@ -133,18 +133,26 @@ class Item:
 
     def get_item(self):
         run = True
-        while run == True:
+        while run:
             get_input = input('What item would you like to measure with?\n')
             if self.check_item(get_input):
                 self.item_name = get_input.lower()
                 break
             else:
-                ask_add = input(f"Looks like {get_input} isn't in the library. If you'd like to add it, please enter its' length in metres. Enter 'S' to skip.\n")
-                if ask_add.lower() == 's':
-                     break
-                else:
-                     self.item_name = get_input
-                     self.item_length = float(ask_add)
-                     self.add_item(self.item_name, self.item_length)
-            
-                     break
+                while run:    
+                    ask_add = input(f"Looks like {get_input} isn't in the library. Enter its' length in metres to add to the library. Enter 'S' to skip.\n")
+                    if ask_add.lower() == 's':
+                        break
+                    elif ask_add == '0':
+                        print("Length must be a number greater than 0.")
+                    else:
+                        try:
+                            self.item_name = get_input
+                            self.item_length = float(ask_add)
+                            self.add_item(self.item_name, self.item_length)
+                            break                        
+                        except ValueError:
+                            print("Length must be a number greater than 0")
+                        
+                
+                break

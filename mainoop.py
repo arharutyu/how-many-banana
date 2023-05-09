@@ -28,23 +28,29 @@ while run == True:
                     while run == True:
                         try:
                             met_length = input("Enter a number in metres: ")
-                            int(met_length)
+                            float(met_length)
+                            break
                         except ValueError:
                             print("That's not a number! Please enter a number")
-
+                    
                     print(f'{met_length}m is {convert_from_m(met_length, item_length)} {active_item.item_name}s long!')
                 else:
-                    while run == True:
+                    while run:
                         try:
                             feet = input("Enter a number in feet: ")
+                            float(feet)
+                            break
                         except ValueError:
                             print("That's not a number! Please enter a number")
+                    while run:    
                         try:                        
                             inches = input("Enter a number in inches: ")
+                            float(inches)
+                            break
                         except ValueError:
                             print("That's not a number! Please enter a number")                            
-                            met_length = convert_from_i(feet, inches)
-                            print(f'{feet} feet {inches} inches is {convert_from_m(met_length, item_length)} {active_item.item_name}s long!')
+                    met_length = convert_from_i(feet, inches)
+                    print(f'{feet} feet {inches} inches is {convert_from_m(met_length, item_length)} {active_item.item_name}s long!')
                     
         #Adjust settings feature
             case 's':
