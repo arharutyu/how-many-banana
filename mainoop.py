@@ -1,5 +1,5 @@
 # from convert import Convert
-from settingsoop import Settings, Item, convert_from_m, convert_from_i
+from settingsoop import convert_from_m, convert_from_i
 import settingsoop
 
 #Heading
