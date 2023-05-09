@@ -6,6 +6,7 @@ import json, csv
 #         raise KeyboardInterrupt
 
 def convert_from_m(met_length, item_length):
+
     try:    
         met_length = float(met_length)
         item_length = float(item_length)
@@ -104,7 +105,16 @@ class Item:
     def __repr__(self):
          item_name = self.item_name
          return f'item: {item_name}'
-              
+    
+    def add_item(self, item_name, item_length):
+        item_name = str(item_name).lower()
+        item_length = float(item_length)
+        new_item = {"item_name": item_name, "item_length": item_length}
+        with open('library.csv', 'a', newline='') as library:
+            writer = csv.DictWriter(library, new_item.keys())
+            writer.writerow(new_item)
+        return print(f'{item_name} has been added to the library with a length of {item_length} metres.\n')     
+             
     def check_item(self, item_name):
         with open('library.csv') as library:
             reader = csv.DictReader(library, delimiter=',')
@@ -122,14 +132,7 @@ class Item:
                     break
         return item_length
 
-    def add_item(self, item_name, item_length):
-        item_name = str(item_name).lower()
-        item_length = float(item_length)
-        new_item = {"item_name": item_name, "item_length": item_length}
-        with open('library.csv', 'a', newline='') as library:
-            writer = csv.DictWriter(library, new_item.keys())
-            writer.writerow(new_item)
-        return print(f'{item_name} has been added to the library with a length of {item_length} metres.\n')
+
 
     def get_item(self):
         run = True
@@ -143,7 +146,7 @@ class Item:
                     ask_add = input(f"Looks like {get_input} isn't in the library. Enter its' length in metres to add to the library. Enter 'S' to skip.\n")
                     if ask_add.lower() == 's':
                         break
-                    elif ask_add == '0':
+                    elif ask_add <= '0':
                         print("Length must be a number greater than 0.")
                     else:
                         try:
