@@ -90,13 +90,16 @@ class Item:
     def __init__(self, item_name):
         self.item_name = item_name
         self.item_length = ' '
-        with open('library.csv') as library:
-            reader = csv.DictReader(library, delimiter=',')
-            for row in reader:
-                                    
+        try:    
+            with open('library.csv') as library:
+                reader = csv.DictReader(library, delimiter=',')
+                for row in reader:       
                     if item_name.lower() == row['item_name'].lower():
                         self.item_length = row['item_length']
-        
+        except:
+            self.item_name = "banana"
+            self.item_length = 0.13
+            print("Something went wrong. Item has been set to default banana")
 
     def __repr__(self):
          item_name = self.item_name
