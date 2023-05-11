@@ -1,6 +1,20 @@
-# from convert import Convert
-from settingsoop import convert_from_m, convert_from_i
+from settingsoop import convert_from_m, convert_from_i, Item
 import settingsoop
+from sys import argv
+
+#Set kwarg as item name (if entered, default to banana per bash script)
+kw_input = argv[1]
+settings = settingsoop.Settings()
+active_item = Item(kw_input)
+
+#Check kwarg item in library & update 
+if active_item.check_item(kw_input):
+    settings.update_settings(active_item.item_name, settings.is_metric)
+
+#Default to banana if not
+else:
+    settings.update_settings('banana', settings.is_metric)
+
 
 #Heading
 print('Welcome to How Many Banana?')
@@ -11,7 +25,7 @@ run = True
 while run:
     #Settings retrieval
     settings = settingsoop.Settings()
-    active_item = settingsoop.Item(settings.item)
+    active_item = Item(settings.item)
 
     # #Print current settings
     print(settings.__str__())
@@ -22,10 +36,9 @@ while run:
     match get_input.lower():
             #Convert to banana feature
             case 'c':
-                # item = settingsoop.Item(settings.item)
                 item_length = active_item.item_length
                 if settings.is_metric == "True":
-                    while run == True:
+                    while run:
                         try:
                             met_length = input("Enter a number in metres: ")
                             float(met_length)
@@ -57,7 +70,7 @@ while run:
                 settings.update_measure()
                 active_item.get_item()
                 settings.update_settings(active_item.item_name, settings.is_metric)
-             
+                print('Settings have been updated')
         #Quit from menu
             case '\q':
                 print('See you later!')

@@ -65,7 +65,7 @@ class Settings:
             update = [{'item_name': item_name, 'is_metric': str(is_metric)}]
             with open('settings.json', 'w') as s:
                     json.dump(update, s, indent=2)
-            return print('Settings have been updated')
+            return 
         except Exception:
              print('Sorry, something went wrong. Settings were not updated.')
         

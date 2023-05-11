@@ -8,7 +8,7 @@ then
     python3 -m venv .venv
     source .venv/bin/activate
     #pip package install here if needed
-    python3 mainoop.py
+    python3 mainoop.py ${1:-banana}
     deactivate
 else 
     echo "Please install python version 3.10 or higher at https://installpython3.com/" >&2
