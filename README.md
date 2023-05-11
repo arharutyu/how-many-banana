@@ -1,20 +1,12 @@
 # How Many Banana?
-
-# R1
-
-Answers to all the _documentation requirements_ below.
-
-# R2
-
-Your `README.md` should have a separate heading for each _documentation requirement_ and answers organised under the appropriate headings.
-
+---
 # R3 References
 
-Attribution to referenced sources will be provided per requirement for ease of access.
+Attribution to referenced sources will be provided per requirement grouping (if present) for ease of access.
 
 # R4 Source Control Repository
 
-https://github.com/arharutyu/how-many-banana
+[GitHub Repository](https://github.com/arharutyu/how-many-banana)
 
 # R5 Styling Conventions
 
@@ -26,20 +18,9 @@ Reference the chosen style guide appropriately.
 
 
 # R6 List of Features
-
-**Develop** a list of features that will be included in the application. It must include:  
-- at least THREE **features**  
-- **describe** each feature  
-  
-**Note:** **Ensure** that your features above allow you to demonstrate your understanding of the following language elements and concepts:  
-- use of variables and the concept of variable scope  
-- loops and conditional control structures  
-- error handling  
-  
-**Consult with your educator** to check your features are sufficient .
-
 ## Feature 1: Menu
 Looping landing point to navigate to convert + settings features
+Navigation to be done by match case to avoid issues caused by (incorrect) user input
 Exit program available here
 
 ## Feature 2: Convert functions
@@ -49,62 +30,50 @@ If is_metric is false, user inputs measures in feet/inches, this is converted to
 ## Feature 3: Adjust settings (item/length, and imperial/metric)
 Settings kept in JSON file - allows for updating & program to remember previous settings.
 Stores values of global variables/objects, and methods to retrieve, and update values.
-
+An additional loop can be put in to allow for new items to be added if the user input is not matched to the existing library. (Lower priority - extra featurel in feature)
 
 # R7 Implementation Plan
 
-**Develop** an implementation plan which:  
-- **outlines** how each feature will be implemented and a checklist of tasks for each feature  
-- prioritise the implementation of different features, or checklist items within a feature  
-- provide a deadline, duration or other time indicator for each feature or checklist/checklist-item  
-  
-Utilise a suitable project management platform to track this implementation plan.
-
-Provide screenshots/images and/or a reference to an accessible project management platform used to track this implementation plan. 
-
-  
-> Your checklists for each feature should have at least 5 items.
-
 ## Identify global objects/variables, and classes for main features
 
-### Global Objects
-#### Item
+## Global Objects
+### Item
 - Item name
 - Item length
-#### Measure
+### Measure
 - Is Metric Boolean
 
 
-### Convert Functions
-#### Description
+## Convert Functions
+### Description
 Contains methods to perform conversions which make the main feature of the app
-#### Properties
+### Properties
 - settings (item, measure)
 - input length (length)
 - converted length 
-#### Methods
+### Methods
 - convert from met length to item length
 - convert from imp length to met length
-#### Notes
+### Notes
 Default measuring system is metric, & calculations done in metres (m)
 
-### Settings Class
-#### Description
+## Settings Class
+### Description
 Contains methods to to access stored settings information, and update settings.
-#### Properties
+### Properties
 - item (item name, item length)
 - measure system (measure type)
-#### Methods
+### Methods
 - retrieve information from settings file
 - update information in settings file
 
-### Item Class
-#### Description
+## Item Class
+### Description
 Contains methods that work with the item object in settings
-#### Properties
+### Properties
 - item name
 - item length
-#### Methods
+### Methods
 - check item name in library
 - get item details from library
 - add item details to library
@@ -116,7 +85,7 @@ Feature development priorities:
 2. menu: as the main loop to apply the functions the menu feature is also high priority.
 3. adjust settings: containing the methods to update global objects/variables and loops within loops, this feature requires 1 & 2 to be complete before it can be applied.
 
-Tracking and due dates were done via trello at the following link: [trello board](https://https://trello.com/b/UWY9MUmn)
+Tracking and due dates were done via trello at the following link: [Trello Board](https://https://trello.com/b/UWY9MUmn)
 
 Priorities for feature boards were highlighted with red tags, and within the checklist for each feature were ordered by importance.
 Projected due dates are noted in the checklist.
@@ -140,20 +109,12 @@ Adjust settings was also split into two as 'adding item' to library is not part 
 
 # R8 Help Documentation
 
-**Design** help documentation which includes a set of instructions which accurately **describe** how to use and install the application.  
-  
-You must include:  
-- steps to install the application  
-- any dependencies required by the application to operate  
-- any system/hardware requirements  
-- how to use any command line arguments made for the application
-
 ### Requirements
-WSL or Linux
-Python version 3.10 or higher
+- WSL or Linux
+- Python version 3.10 or higher
 
 ### Dependencies
-csv, json modules (no install required)
+csv, json, and sys modules (no install required)
 
 ### Installation
 *Please ensure your computer has all requirements to run the program successfully*
@@ -167,6 +128,15 @@ csv, json modules (no install required)
 5. Enjoy converting bananas!
 
 ### Using the Program
+Step 4 of installation above is the command to run the program.
+You have the option to add a keyword argument and specify the item to use for converting as follows:
+``` ./wrapper.sh itemname ```
+
+*For example: if you want to run the program to measure with apples, you would enter the command:* ``` ./wrapper.sh apple ```
+
+If the item specified is not in the library, or no item is specified, the program will default to measuring with bananas.
+
+#### Menu
 The main menu will present you with 3 options:
 - Convert
 - Adjust Settings
