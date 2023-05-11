@@ -4,6 +4,7 @@ from sys import argv
 
 #Set kwarg as item name (if entered, default to banana per bash script)
 kw_input = argv[1]
+kw_input = str(kw_input).lower()
 settings = settingsoop.Settings()
 active_item = Item(kw_input)
 
