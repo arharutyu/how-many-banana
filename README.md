@@ -121,6 +121,21 @@ Tracking and due dates were done via trello at the following link: [trello board
 Priorities for feature boards were highlighted with red tags, and within the checklist for each feature were ordered by importance.
 Projected due dates are noted in the checklist.
 
+A card will start in the 'Backlog' column, and make it's way across to the 'Done' column as work is complete.
+
+![Trello board implementation plan, boards left to right: backlog, design, to-do, doing, code review, testing, done](/docs/trellooverview.png)
+
+Convert functions were split in two as the default metric was used in the base level design of the code
+
+![Convert functions trello cards screenshots, left: convert from imperial, right: convert from metric](/docs/trelloconvert.png)
+
+Menu
+
+![menu trello card screenshot](/docs/trellomenu.png)
+
+Adjust settings was also split into two as 'adding item' to library is not part of the core functionality of the program.
+
+![Settings trello cards screenshots, left: adjust settings, right: add item](/docs/trellosettings.png)
 
 
 # R8 Help Documentation
