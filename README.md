@@ -38,11 +38,17 @@ Reference the chosen style guide appropriately.
   
 **Consult with your educator** to check your features are sufficient .
 
-## Feature 1:
+## Feature 1: Menu
+Looping landing point to navigate to convert + settings features
+Exit program available here
 
-## Feature 3:
+## Feature 2: Convert functions
+This feature operates with conditional control structure depending on the is_metric variable from settings. If is_metric is true, user inputs measurements in meters, output converted to bananas.
+If is_metric is false, user inputs measures in feet/inches, this is converted to meters, then converted to bananas for the output.
 
-## Feature 2:
+## Feature 3: Adjust settings (item/length, and imperial/metric)
+Settings kept in JSON file - allows for updating & program to remember previous settings.
+Stores values of global variables/objects, and methods to retrieve, and update values.
 
 
 # R7 Implementation Plan
@@ -58,6 +64,64 @@ Provide screenshots/images and/or a reference to an accessible project managemen
 
   
 > Your checklists for each feature should have at least 5 items.
+
+## Identify global objects/variables, and classes for main features
+
+### Global Objects
+#### Item
+- Item name
+- Item length
+#### Measure
+- Is Metric Boolean
+
+
+### Convert Functions
+#### Description
+Contains methods to perform conversions which make the main feature of the app
+#### Properties
+- settings (item, measure)
+- input length (length)
+- converted length 
+#### Methods
+- convert from met length to item length
+- convert from imp length to met length
+#### Notes
+Default measuring system is metric, & calculations done in metres (m)
+
+### Settings Class
+#### Description
+Contains methods to to access stored settings information, and update settings.
+#### Properties
+- item (item name, item length)
+- measure system (measure type)
+#### Methods
+- retrieve information from settings file
+- update information in settings file
+
+### Item Class
+#### Description
+Contains methods that work with the item object in settings
+#### Properties
+- item name
+- item length
+#### Methods
+- check item name in library
+- get item details from library
+- add item details to library
+- change item details in library (optional)
+
+## Prioritization and tracking
+Feature development priorities:
+1. convert functions: as the basis of the core functionality of the app the function definitions for conversion are the highest priority.
+2. menu: as the main loop to apply the functions the menu feature is also high priority.
+3. adjust settings: containing the methods to update global objects/variables and loops within loops, this feature requires 1 & 2 to be complete before it can be applied.
+
+Tracking and due dates were done via trello at the following link: [trello board](https://https://trello.com/b/UWY9MUmn)
+
+Priorities for feature boards were highlighted with red tags, and within the checklist for each feature were ordered by importance.
+Projected due dates are noted in the checklist.
+
+
 
 # R8 Help Documentation
 
