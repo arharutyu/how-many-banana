@@ -8,7 +8,7 @@ print('Welcome to How Many Banana?')
 
 #Main loop
 run = True
-while run == True:
+while run:
     #Settings retrieval
     settings = settingsoop.Settings()
     active_item = settingsoop.Item(settings.item)
