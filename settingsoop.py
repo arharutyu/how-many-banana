@@ -1,5 +1,5 @@
-import json, csv
-
+import json, csv, sys
+from termcolor import cprint
 # def get_input(prompt):
 #      prompt = input(prompt)
 #      if prompt.lower() == '\q':
@@ -14,7 +14,7 @@ def convert_from_m(met_length, item_length):
 
     except Exception:
          converted_length = 1
-         print('Error in calculation, assuming converted length of 1')
+         cprint('Error in calculation, assuming converted length of 1', "red")
           
     return f'{converted_length:.2f}'      
     
@@ -26,7 +26,7 @@ def convert_from_i(feet, inches):
 
     except Exception:
          met_length = 1
-         print('Error in calculation, assuming length of 1')
+         cprint("Error in calculation, assuming length of 1", "red")
 
     return met_length
     
@@ -56,7 +56,7 @@ class Settings:
             self.is_metric = is_metric
 
         except Exception:
-             print("Something went very wrong, sorry it's broken.")
+             cprint("Something went very wrong, sorry it's broken.", "red")
              quit()
 
 
@@ -67,7 +67,7 @@ class Settings:
                     json.dump(update, s, indent=2)
             return 
         except Exception:
-             print('Sorry, something went wrong. Settings were not updated.')
+             cprint('Sorry, something went wrong. Settings were not updated.', "red")
         
     def update_measure(self):
         run = None
@@ -84,7 +84,7 @@ class Settings:
                     case _:
                           raise ValueError
             except ValueError:
-                 print("Sorry, please type 'metric' or 'imperial'")
+                 cprint("Sorry, please type 'metric' or 'imperial'", "red")
         
     
 class Item:
@@ -100,7 +100,7 @@ class Item:
         except:
             self.item_name = "banana"
             self.item_length = 0.13
-            print("Something went wrong. Item has been set to default banana")
+            cprint("Something went wrong. Item has been set to default banana", "red")
 
     def __repr__(self):
          item_name = self.item_name
@@ -147,7 +147,7 @@ class Item:
                     if ask_add.lower() == 's':
                         break
                     elif ask_add <= '0':
-                        print("Length must be a number greater than 0.")
+                        cprint("Length must be a number greater than 0.", "red")
                     else:
                         try:
                             self.item_name = get_input
@@ -155,7 +155,7 @@ class Item:
                             self.add_item(self.item_name, self.item_length)
                             break                        
                         except ValueError:
-                            print("Length must be a number greater than 0")
+                            cprint("Length must be a number greater than 0", "red")
                         
                 
                 break

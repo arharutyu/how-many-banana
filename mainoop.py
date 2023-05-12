@@ -1,6 +1,7 @@
 from settingsoop import convert_from_m, convert_from_i, Item
 import settingsoop
 from sys import argv
+from termcolor import cprint
 
 #Set kwarg as item name (if entered, default to banana per bash script)
 kw_input = argv[1]
@@ -18,7 +19,7 @@ else:
 
 
 #Heading
-print('Welcome to How Many Banana?')
+cprint("Welcome to How Many Banana?", 'black', 'on_light_yellow')
 
 
 #Main loop
@@ -45,9 +46,10 @@ while run:
                             float(met_length)
                             break
                         except ValueError:
-                            print("That's not a number! Please enter a number")
+                            cprint("That's not a number! Please enter a number", "red")
                     
-                    print(f'{met_length}m is {convert_from_m(met_length, item_length)} {active_item.item_name}s long!')
+                    print(f'\n{met_length}m is:') 
+                    cprint(f'{convert_from_m(met_length, item_length)} {active_item.item_name}s long!', 'black', 'on_light_yellow')
                 else:
                     while run:
                         try:
@@ -55,23 +57,24 @@ while run:
                             float(feet)
                             break
                         except ValueError:
-                            print("That's not a number! Please enter a number")
+                            cprint("That's not a number! Please enter a number", "red")
                     while run:    
                         try:                        
                             inches = input("Enter a number in inches: ")
                             float(inches)
                             break
                         except ValueError:
-                            print("That's not a number! Please enter a number")                            
+                            cprint("That's not a number! Please enter a number", "red")                            
                     met_length = convert_from_i(feet, inches)
-                    print(f'{feet} feet {inches} inches is {convert_from_m(met_length, item_length)} {active_item.item_name}s long!')
+                    print(f'\n{feet} feet {inches} inches is:')
+                    cprint(f'{convert_from_m(met_length, item_length)} {active_item.item_name}s long!', 'black', 'on_light_yellow')
                     
         #Adjust settings feature
             case 's':
                 settings.update_measure()
                 active_item.get_item()
                 settings.update_settings(active_item.item_name, settings.is_metric)
-                print('Settings have been updated')
+                cprint('Settings have been updated', "white", "on_dark_grey")
         #Quit from menu
             case '\q':
                 print('See you later!')
