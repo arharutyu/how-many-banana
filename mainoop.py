@@ -3,23 +3,29 @@ import settingsoop
 from sys import argv
 from termcolor import cprint
 
-#Set kwarg as item name (if entered, default to banana per bash script)
+#Set kwarg as item name (if entered, else default to banana per bash script)
 kw_input = argv[1]
 kw_input = str(kw_input).lower()
 settings = settingsoop.Settings()
 active_item = Item(kw_input)
 
-#Check kwarg item in library & update 
+#Check kwarg item exists in library & update, else default to banana
 if active_item.check_item(kw_input):
     settings.update_settings(active_item.item_name, settings.is_metric)
-
-#Default to banana if not
 else:
     settings.update_settings('banana', settings.is_metric)
 
 
 #Heading
-cprint("Welcome to How Many Banana?", 'black', 'on_light_yellow')
+with open('header.txt', 'r') as f:
+    for line in f:
+        print(line.rstrip())
+
+with open('header2.txt', 'r') as f:
+    for line in f:
+        cprint(line.rstrip(), "light_yellow")
+
+cprint("\n", 'black', 'on_light_yellow')
 
 
 #Main loop
@@ -79,5 +85,8 @@ while run:
             case '\q':
                 print('See you later!')
                 quit()
+
+            case _:
+                cprint('Invalid input. Please try again.', "red")
  
                     
