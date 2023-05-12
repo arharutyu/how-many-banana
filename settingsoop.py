@@ -1,9 +1,11 @@
 import json, csv, sys
 from termcolor import cprint
-# def get_input(prompt):
-#      prompt = input(prompt)
-#      if prompt.lower() == '\q':
-#         raise KeyboardInterrupt
+
+def get_input(prompt):
+     user_result = input(prompt)
+     if user_result.lower() == '\q':
+        raise KeyboardInterrupt
+     return user_result
 
 def convert_from_m(met_length, item_length):
 
@@ -73,7 +75,7 @@ class Settings:
         run = None
         while run == None:
             try:
-                get_is_metric = input('Convert using metric or imperial system?\n')
+                get_is_metric = get_input('Convert using metric or imperial system?\n')
                 match get_is_metric[0].lower():
                     case 'm':
                             self.is_metric = True
@@ -137,20 +139,20 @@ class Item:
     def get_item(self):
         run = True
         while run:
-            get_input = input('What item would you like to measure with?\n')
-            if self.check_item(get_input):
-                self.item_name = get_input.lower()
+            user_input = get_input('What item would you like to measure with?\n')
+            if self.check_item(user_input):
+                self.item_name = user_input.lower()
                 break
             else:
                 while run:    
-                    ask_add = input(f"Looks like {get_input} isn't in the library. Enter its' length in metres to add to the library. Enter 'S' to skip.\n")
+                    ask_add = get_input(f"Looks like {user_input} isn't in the library. Enter its' length in metres to add to the library. Enter 'S' to skip.\n")
                     if ask_add.lower() == 's':
                         break
                     elif ask_add <= '0':
                         cprint("Length must be a number greater than 0.", "red")
                     else:
                         try:
-                            self.item_name = get_input
+                            self.item_name = user_input
                             self.item_length = float(ask_add)
                             self.add_item(self.item_name, self.item_length)
                             break                        
