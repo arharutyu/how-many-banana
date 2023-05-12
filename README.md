@@ -114,7 +114,17 @@ Adjust settings was also split into two as 'adding item' to library is not part 
 - Python version 3.10 or higher
 
 ### Dependencies
-csv, json, and sys modules (no install required)
+- csv, json, and sys modules (no install required)
+- termcolor 2.3.0 (installed via script)
+
+*For assessment purposes only, the following pytest dependencies are also required:*
+- exceptiongroup 1.1.1
+- iniconfig 2.0.0
+- packaging 23.1
+- pluggy 1.0.0
+- pytest 7.3.1
+- tomli 2.0.1
+
 
 ### Installation
 *Please ensure your computer has all requirements to run the program successfully*
@@ -153,7 +163,7 @@ The units used for converting can be adjusted here. You can update two settings:
 The program comes with a few pre programmed lengths of standard fruit/ items for your measuring pleasure. If you try to measure with an item that is not in the library, you will be prompted to add its' length, and the library will save these details for future conversion.
 
 #### Quit
-To exit the program enter ```\Q``` at the menu
+To exit the program enter ```\Q``` from any input request
 
 #### Library 
 Fruits and measurements in the standard library include:
