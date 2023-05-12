@@ -7,6 +7,7 @@ if [[ "${pyverminor}" > "09" ]]
 then 
     python3 -m venv .venv
     source .venv/bin/activate
+    python -m ensurepip --upgrade
     python3 -m pip install --upgrade termcolor
     python3 mainoop.py ${1:-banana}
     deactivate
