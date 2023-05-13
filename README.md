@@ -1,5 +1,8 @@
-# How Many Banana?
+# How Many Bananas?
 ---
+# Video Presentation
+[Presentation](https://youtu.be/NcpYbd20LRU)
+
 # R3 References
 
 Attribution to referenced sources will be provided per requirement grouping (if present) for ease of access.
@@ -10,12 +13,10 @@ Attribution to referenced sources will be provided per requirement grouping (if 
 
 # R5 Styling Conventions
 
-Identify any code style guide or styling conventions that the application will adhere to.
-
-Reference the chosen style guide appropriately.
+Python PEP0008 will be used for styling conventions
 
 ## Reference
-
+van Rossum, G., Warsaw, B. and Coghlan, N. (2001) Python enhancement proposals, PEP 8 – Style Guide for Python Code. Available at: https://peps.python.org/pep-0008/ (Accessed: 06 May 2023). 
 
 # R6 List of Features
 ## Feature 1: Menu
