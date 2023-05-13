@@ -1,14 +1,15 @@
 import json, csv, sys
 from termcolor import cprint
 
+#All user input, graceful exit
 def get_input(prompt):
-     user_result = input(prompt)
-     if user_result.lower() == '\q':
+     user_input = input(prompt)
+     if user_input.lower() == '\q':
         raise KeyboardInterrupt
-     return user_result
+     return user_input
 
+#Convert from meter to item length
 def convert_from_m(met_length, item_length):
-
     try:    
         met_length = float(met_length)
         item_length = float(item_length)
@@ -19,7 +20,8 @@ def convert_from_m(met_length, item_length):
          cprint('Error in calculation, assuming converted length of 1', "red")
           
     return f'{converted_length:.2f}'      
-    
+
+#Convert from feet/inches to meters   
 def convert_from_i(feet, inches):
     try:
         feet = float(feet)
@@ -32,7 +34,6 @@ def convert_from_i(feet, inches):
 
     return met_length
     
-
 class Settings:
     def __init__(self):
         self.item = ' '
@@ -48,6 +49,7 @@ class Settings:
              measure_name = 'imperial'
         return f"\nYou are measuring with {item}s in the {measure_name} system."
 
+    #Get settings from file
     def retrieve_settings(self):
         try:    
             with open('settings.json') as s:
@@ -61,16 +63,7 @@ class Settings:
              cprint("Something went very wrong, sorry it's broken.", "red")
              quit()
 
-
-    def update_settings(self, item_name, is_metric):
-        try:    
-            update = [{'item_name': item_name, 'is_metric': str(is_metric)}]
-            with open('settings.json', 'w') as s:
-                    json.dump(update, s, indent=2)
-            return 
-        except Exception:
-             cprint('Sorry, something went wrong. Settings were not updated.', "red")
-        
+    #Ask user which measurement system to use
     def update_measure(self):
         run = None
         while run == None:
@@ -87,8 +80,17 @@ class Settings:
                           raise ValueError
             except ValueError:
                  cprint("Sorry, please type 'metric' or 'imperial'", "red")
+
+    #Send settings to file
+    def update_settings(self, item_name, is_metric):
+        try:    
+            update = [{'item_name': item_name, 'is_metric': str(is_metric)}]
+            with open('settings.json', 'w') as s:
+                    json.dump(update, s, indent=2)
+            return 
+        except Exception:
+             cprint('Sorry, something went wrong. Settings were not updated.', "red")
         
-    
 class Item:
     def __init__(self, item_name):
         self.item_name = item_name
@@ -108,6 +110,7 @@ class Item:
          item_name = self.item_name
          return f'item: {item_name}'
     
+    #Send item details to library
     def add_item(self, item_name, item_length):
         item_name = str(item_name).lower()
         item_length = float(item_length)
@@ -116,7 +119,8 @@ class Item:
             writer = csv.DictWriter(library, new_item.keys())
             writer.writerow(new_item)
         return print(f'{item_name} has been added to the library with a length of {item_length} metres.\n')     
-             
+
+    #Check user input item is in library      
     def check_item(self, item_name):
         with open('library.csv') as library:
             reader = csv.DictReader(library, delimiter=',')
@@ -124,6 +128,7 @@ class Item:
                 if item_name in str(row).lower(): 
                     return True
 
+    #Get item length from library
     def get_item_length(self, item_name):
         item_length = self.item_length
         with open('library.csv') as library:
@@ -134,8 +139,7 @@ class Item:
                     break
         return item_length
 
-
-
+    #Ask user which item to measure with
     def get_item(self):
         run = True
         while run:
@@ -145,6 +149,7 @@ class Item:
                 break
             else:
                 while run:    
+                    #Item not found in library, ask to add length
                     ask_add = get_input(f"Looks like {user_input} isn't in the library. Enter its' length in metres to add to the library. Enter 'S' to skip.\n")
                     if ask_add.lower() == 's':
                         break
@@ -152,12 +157,11 @@ class Item:
                         cprint("Length must be a number greater than 0.", "red")
                     else:
                         try:
+                            #Add item & length to library
                             self.item_name = user_input
                             self.item_length = float(ask_add)
                             self.add_item(self.item_name, self.item_length)
                             break                        
                         except ValueError:
-                            cprint("Length must be a number greater than 0", "red")
-                        
-                
+                            cprint("Length must be a number greater than 0", "red")        
                 break
