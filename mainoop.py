@@ -15,7 +15,6 @@ if active_item.check_item(kw_input):
 else:
     settings.update_settings('banana', settings.is_metric)
 
-
 #Heading
 with open('header.txt', 'r') as f:
     for line in f:
@@ -35,7 +34,7 @@ while run:
     settings = settingsoop.Settings()
     active_item = Item(settings.item)
 
-    # #Print current settings
+    #Print current settings
     print(settings.__str__())
     
     #Ask user for input
@@ -58,34 +57,33 @@ while run:
                     else:
                         while run:
                             try:
-                                feet = get_input("Enter a number in feet: ")
+                                ask = get_input("Enter feet and inches separated by an apostrophe: ").split("\'")
+                                feet = float(ask[0])
+                                inches = float(ask[1].strip('\"'))
                                 float(feet)
-                                break
-                            except ValueError:
-                                cprint("That's not a number! Please enter a number", "red")
-                        while run:    
-                            try:                        
-                                inches = get_input("Enter a number in inches: ")
                                 float(inches)
                                 break
                             except ValueError:
-                                cprint("That's not a number! Please enter a number", "red")                            
+                                cprint("Invalid input for imperial system. Enter two numbers seperated by an apostrophe.\n For example: 5'5 is 5 feet 5 inches", "red")
+                        
                         met_length = convert_from_i(feet, inches)
                         print(f'\n{feet} feet {inches} inches is:')
                         cprint(f'{convert_from_m(met_length, item_length)} {active_item.item_name}s long!', 'black', 'on_light_yellow')
                         
-            #Adjust settings feature
+                #Adjust settings feature
                 case 's':
                     settings.update_measure()
                     active_item.get_item()
                     settings.update_settings(active_item.item_name, settings.is_metric)
                     cprint('Settings have been updated', "white", "on_dark_grey")
 
+                #Error handling any other input
                 case _:
                     cprint('Invalid input. Please try again.', "red")
+
     #Quit from menu
     except KeyboardInterrupt:
-            print('See you later!')
+            print('\nSee you later!')
             quit()
     
                     
