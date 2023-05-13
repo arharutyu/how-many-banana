@@ -1,16 +1,20 @@
 import pytest
-from settingsoop import convert_from_m, Settings, Item
+from settingsoop import convert_from_m, convert_from_i, Settings, Item
+
 
 ##CONVERT FEATURE TESTS##
-
 def test_convert_from_m():
     # test if item_length is zero
     assert convert_from_m(1,0) == '1.00'
     # test converted_length returns expected values
     assert convert_from_m(10,2) == '5.00'
 
-
-
+def test_convert_from_i():
+       #test expected values
+       assert convert_from_i(0,10) == .254
+       #test invalid arg 
+       assert convert_from_i('a', 2) == 1
+       
 ##UPDATE SETTINGS TESTS (is_metric)##
 testSettingsData = [
         {'item_name': 'banana', 'is_metric': False}
