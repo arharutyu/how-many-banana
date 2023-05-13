@@ -23,9 +23,7 @@ with open('header.txt', 'r') as f:
 with open('header2.txt', 'r') as f:
     for line in f:
         cprint(line.rstrip(), "light_yellow")
-
 cprint("\n", 'black', 'on_light_yellow')
-
 
 #Main loop
 run = True
